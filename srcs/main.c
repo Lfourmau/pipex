@@ -13,6 +13,10 @@ int main(int argc, char **argv)
         printf("APRES FORK PROCESS PAPS\n");
         wait(NULL);
     }
-    printf("FIN FORK\n");
+    if (pid == 0)
+        printf("FIN PROCESS PAPS\n");
+    else
+        printf("FIN PROCESS FILS\n");
+
     
 }
