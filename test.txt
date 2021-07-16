@@ -1,0 +1,7 @@
+Makefile
+a.out
+includes
+libft
+srcs
+test
+test.txt
