@@ -37,6 +37,6 @@ char		*ft_strjoin(char const *prefixe, char const *suffixe)
 		j++;
 	}
 	concat[len] = 0;
-	free((char *)prefixe);
+	//free((char *)prefixe);
 	return (concat);
 }

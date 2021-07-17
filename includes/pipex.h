@@ -9,4 +9,10 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
+typedef struct s_fd
+{
+    int fd_input;
+    int fd_output;
+} t_fd;
+
 #endif
