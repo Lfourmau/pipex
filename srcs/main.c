@@ -33,6 +33,8 @@ int main(int argc, char **argv)
 	t_fd fd;
 	char *command;
 	int fd_test = open("text.txt", O_RDWR);
+	int	pid;
+	int pipefd[2];
 	//if (parsing(argc, argv, fd))
 	//	return (error());
 	close(1);

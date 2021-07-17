@@ -1,0 +1,16 @@
+Makefile
+a.out
+includes
+libft
+srcs
+text.txt
+ Jul 17 14:50 .
+drwxr-xr-x   8 lfourmau  2020   272 Jun 25 14:59 ..
+drwxr-xr-x  15 lfourmau  2020   510 Jul 17 13:41 .git
+-rw-r--r--   1 lfourmau  2020   430 Jun 25 12:50 .gitignore
+-rw-r--r--   1 lfourmau  2020     0 Jun 25 14:56 Makefile
+-rwxr-xr-x   1 lfourmau  2020  9188 Jul 17 14:50 a.out
+drwxr-xr-x   3 lfourmau  2020   102 Jun 28 14:14 includes
+drwxr-xr-x  92 lfourmau  2020  3128 Jul 17 12:09 libft
+drwxr-xr-x   3 lfourmau  2020   102 Jul 17 08:27 srcs
+-rw-r--r--   1 lfourmau  2020   564 Jul 17 14:16 text.txt
