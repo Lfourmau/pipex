@@ -14,12 +14,12 @@ int main(int argc, char **argv)
 	if (pid != 0)
 	{
 		printf("daddy\n");
-		fd = fopen("meuh.sh", "rb+");
-		execve("./meuh.sh", NULL, NULL);
 		wait(NULL);
 	}
 	else
 	{
 		printf("son\n");
+		fd = fopen("meuh.sh", "rb+");
+		execve("./meuh.sh", NULL, NULL);
 	}
 }
