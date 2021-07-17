@@ -23,7 +23,7 @@ char	*create_command(char *cmd)
 {
 	char *command;
 	char **words;
-
+	//pour coller a bin le premier mot de la commande (ls, cat, wc...)
 	words = ft_split(cmd, ' ');
 	command = ft_strjoin("/bin/", words[0]);
 	return (command);
@@ -35,6 +35,7 @@ int main(int argc, char **argv)
 	int	pid;
 	int pipefd[2];
 	char *line;
+
 	//if (parsing(argc, argv, fd))
 	//	return (error());
 	pipe(pipefd);
@@ -50,9 +51,9 @@ int main(int argc, char **argv)
 	else
 	{
 		close(pipefd[1]);
+		get_next_line(pipefd[0], &line);
+		printf("%s\n", line);
 		wait(NULL);
-		while (get_next_line(pipefd[0], &line) != 0)
-			printf("%s\n", line);
 	}
 	return (0);
 }
