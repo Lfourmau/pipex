@@ -19,12 +19,12 @@ int parsing(int argc, char **argv, t_fd fd)
 	return (0);
 }
 
-char	*create_command(char **argv)
+char	*create_command(char *cmd)
 {
 	char *command;
 	char **words;
 
-	words = ft_split(argv[1], ' ');
+	words = ft_split(cmd, ' ');
 	command = ft_strjoin("/bin/", words[0]);
 	return (command);
 }
@@ -32,11 +32,12 @@ int main(int argc, char **argv)
 {
 	t_fd fd;
 	char *command;
-
+	int fd_test = open("text.txt", O_RDWR);
 	//if (parsing(argc, argv, fd))
 	//	return (error());
-	command = create_command(argv);
-	printf("%s\n", command);
+	close(1);
+	dup2(fd_test, 1);
+	command = create_command(argv[1]);
 	execve(command, ft_split(argv[1], ' '), NULL);
 	return (0);
 }
