@@ -32,14 +32,27 @@ int main(int argc, char **argv)
 {
 	t_fd fd;
 	char *command;
-	int fd_test = open("text.txt", O_RDWR);
 	int	pid;
 	int pipefd[2];
+	char *line;
 	//if (parsing(argc, argv, fd))
 	//	return (error());
-	close(1);
-	dup2(fd_test, 1);
-	command = create_command(argv[1]);
-	execve(command, ft_split(argv[1], ' '), NULL);
+	pipe(pipefd);
+	pid = fork();
+	if (pid == 0)
+	{
+		close(pipefd[0]);
+		close(1);
+		dup2(pipefd[1], 1);
+		command = create_command(argv[1]);
+		execve(command, ft_split(argv[1], ' '), NULL);
+	}
+	else
+	{
+		close(pipefd[1]);
+		wait(NULL);
+		while (get_next_line(pipefd[0], &line) != 0)
+			printf("%s\n", line);
+	}
 	return (0);
 }
