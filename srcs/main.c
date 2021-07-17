@@ -38,6 +38,7 @@ int main(int argc, char **argv)
 
 	//if (parsing(argc, argv, fd))
 	//	return (error());
+	line = NULL;
 	pipe(pipefd);
 	pid = fork();
 	if (pid == 0)
@@ -46,14 +47,15 @@ int main(int argc, char **argv)
 		close(1);
 		dup2(pipefd[1], 1);
 		command = create_command(argv[1]);
+		argv[1] = ft_strjoin(argv[1], " text.txt");
 		execve(command, ft_split(argv[1], ' '), NULL);
 	}
 	else
 	{
+		wait(NULL);
 		close(pipefd[1]);
 		get_next_line(pipefd[0], &line);
 		printf("%s\n", line);
-		wait(NULL);
 	}
 	return (0);
 }
