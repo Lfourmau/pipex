@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lfourmau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lfourmau <lfourmau@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:21:18 by lfourmau          #+#    #+#             */
-/*   Updated: 2020/12/01 16:28:47 by lfourmau         ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 07:06:36 by lfourmau         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,11 @@ static char	**ft_free_chains(char **chains, int i)
 	return (NULL);
 }
 
-char		**ft_split(char const *str, char sep)
+char	**split_loop(char **chains, const char *str, char *start, char sep)
 {
-	char	**chains;
-	char	*start;
-	int		i;
+	int	i;
 
 	i = 0;
-	if (!str || !(chains = malloc(sizeof(char *) * (ft_ctw(str, sep) + 1))))
-		return (NULL);
 	while (*str)
 	{
 		while (*str && *str == sep)
@@ -56,12 +52,28 @@ char		**ft_split(char const *str, char sep)
 			str++;
 		if (start != str)
 		{
-			if (!(chains[i] = malloc(sizeof(char) * (str - start + 1))))
+			chains[i] = malloc(sizeof(char) * (str - start + 1));
+			if (!chains[i])
 				return (ft_free_chains(chains, i));
 			ft_strlcpy(chains[i], start, str - start + 1);
 			i++;
 		}
 	}
 	chains[i] = 0;
+	return (chains);
+}
+
+char	**ft_split(char const *str, char sep)
+{
+	char	**chains;
+	char	*start;
+	int		i;
+
+	i = 0;
+	start = NULL;
+	chains = malloc(sizeof(char *) * (ft_ctw(str, sep) + 1));
+	if (!str || !chains)
+		return (NULL);
+	chains = split_loop(chains, str, start, sep);
 	return (chains);
 }

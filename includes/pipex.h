@@ -15,4 +15,6 @@ typedef struct s_fd
     int fd_output;
 } t_fd;
 
+char	*create_command_path(char *cmd);
+
 #endif

@@ -19,43 +19,23 @@ int parsing(int argc, char **argv, t_fd fd)
 	return (0);
 }
 
-char	*create_command(char *cmd)
+void build_first_cmd(char **argv)
 {
-	char *command;
-	char **words;
-	//pour coller a bin le premier mot de la commande (ls, cat, wc...)
-	words = ft_split(cmd, ' ');
-	command = ft_strjoin("/bin/", words[0]);
-	return (command);
+	argv[2] = ft_strjoin(argv[2], " ");
+	argv[2] = ft_strjoin(argv[2], argv[1]);
 }
+
 int main(int argc, char **argv)
 {
 	t_fd fd;
-	char *command;
-	int	pid;
-	int pipefd[2];
-	char *line;
+	char	*path;
 
 	//if (parsing(argc, argv, fd))
 	//	return (error());
-	line = NULL;
-	pipe(pipefd);
-	pid = fork();
-	if (pid == 0)
-	{
-		close(pipefd[0]);
-		close(1);
-		dup2(pipefd[1], 1);
-		command = create_command(argv[1]);
-		argv[1] = ft_strjoin(argv[1], " text.txt");
-		execve(command, ft_split(argv[1], ' '), NULL);
-	}
-	else
-	{
-		wait(NULL);
-		close(pipefd[1]);
-		get_next_line(pipefd[0], &line);
-		printf("%s\n", line);
-	}
+	path = create_command_path(argv[2]);
+	build_first_cmd(argv);
+	if (path == NULL)
+		return (error());
+	execve(path, ft_split(argv[2], ' '), NULL);
 	return (0);
 }

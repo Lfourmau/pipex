@@ -3,34 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lfourmau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lfourmau <lfourmau@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 09:06:55 by lfourmau          #+#    #+#             */
-/*   Updated: 2021/02/17 09:59:29 by lfourmau         ###   ########lyon.fr   */
+/*   Updated: 2021/05/07 07:32:58 by lfourmau         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_isline_break(const char *s)
+static char	*ft_strlcpy_gnl(char *dest, const char *src, size_t size)
 {
-	int i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-	{
-		if (s[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static char		*ft_strlcpy_gnl(char *dest, const char *src, size_t size)
-{
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (src == 0)
@@ -50,7 +34,7 @@ static char		*ft_strlcpy_gnl(char *dest, const char *src, size_t size)
 	return (dest);
 }
 
-static char		*after_lb(char *str)
+static char	*after_lb(char *str)
 {
 	char				*chain;
 	unsigned int		i;
@@ -70,7 +54,7 @@ static char		*after_lb(char *str)
 	return (chain);
 }
 
-static char		*before_lb(char *str)
+static char	*before_lb(char *str)
 {
 	int		i;
 	char	*chain;
@@ -80,12 +64,13 @@ static char		*before_lb(char *str)
 		return (NULL);
 	while (str[i] && str[i] != '\n')
 		i++;
-	if (!(chain = malloc(sizeof(char) * (i + 1))))
+	chain = malloc(sizeof(char) * (i + 1));
+	if (!chain)
 		return (NULL);
 	return (ft_strlcpy_gnl(chain, str, i + 1));
 }
 
-int				get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	char			*tmp;
 	static char		*buffer;
@@ -94,18 +79,12 @@ int				get_next_line(int fd, char **line)
 	read_return = 1;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
-	if (!(tmp = malloc(BUFFER_SIZE + 1)))
+	tmp = malloc(BUFFER_SIZE + 1);
+	if (!tmp)
 		return (-1);
-	while (!ft_isline_break(buffer) && read_return != 0)
-	{
-		if ((read_return = read(fd, tmp, BUFFER_SIZE)) == -1)
-		{
-			free(tmp);
-			return (-1);
-		}
-		tmp[read_return] = '\0';
-		buffer = ft_strjoin(buffer, tmp);
-	}
+	buffer = gnl_loop(buffer, tmp, &read_return, fd);
+	if (buffer == NULL)
+		return (-1);
 	free(tmp);
 	*line = before_lb(buffer);
 	buffer = after_lb(buffer);

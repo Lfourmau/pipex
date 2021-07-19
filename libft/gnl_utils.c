@@ -1,29 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   gnl_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfourmau <lfourmau@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/23 14:37:33 by lfourmau          #+#    #+#             */
-/*   Updated: 2021/05/04 08:09:13 by lfourmau         ###   ########lyon.fr   */
+/*   Created: 2021/05/07 07:13:57 by lfourmau          #+#    #+#             */
+/*   Updated: 2021/05/07 07:32:48 by lfourmau         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+static int	ft_isline_break(const char *s)
 {
 	int	i;
 
 	i = 0;
-	if (s != 0)
+	if (!s)
+		return (0);
+	while (s[i])
 	{
-		while (s[i])
-		{
-			write(fd, &s[i], 1);
-			i++;
-		}
-		write(fd, "\n", 1);
+		if (s[i] == '\n')
+			return (1);
+		i++;
 	}
+	return (0);
+}
+
+char	*gnl_loop(char *buffer, char *tmp, int *read_return, int fd)
+{
+	while (!ft_isline_break(buffer) && *read_return != 0)
+	{
+		*read_return = read(fd, tmp, BUFFER_SIZE);
+		if (*read_return == -1)
+		{
+			free(tmp);
+			return (NULL);
+		}
+		tmp[*read_return] = '\0';
+		buffer = ft_strjoin(buffer, tmp);
+	}
+	return (buffer);
 }
