@@ -16,5 +16,7 @@ typedef struct s_fd
 } t_fd;
 
 char	*create_command_path(char *cmd);
+int     first_fork_child(int *pipefd, char *cmd, char *path);
+int     first_fork_dad(int *pipefd);
 
 #endif

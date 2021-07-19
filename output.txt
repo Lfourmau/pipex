@@ -1,0 +1,1 @@
+-rw-r--r--  1 lfourmau  2020  47 Jul 19 10:22 text.txt

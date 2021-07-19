@@ -2,6 +2,7 @@ NAME = pipex
 
 SRCS = 	srcs/main.c \
 		srcs/create_cmd_path.c \
+		srcs/first_fork_fct.c \
 
 OBJS = $(SRCS:.c=.o)
 
