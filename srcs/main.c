@@ -6,15 +6,15 @@ int	error()
 	return (1);
 }
 
-int parsing(int argc, char **argv, t_fd fd)
+int parsing(int argc, char **argv, t_fd *fd)
 {
 	if (argc != 5)
 		return (1);
-	fd.fd_input = open(argv[1], O_RDWR);
-	if (fd.fd_input == -1)
+	fd->fd_input = open(argv[1], O_RDWR);
+	if (fd->fd_input == -1)
 		return (1);
-	fd.fd_output = open(argv[4], O_RDWR);
-	if (fd.fd_output == -1)
+	fd->fd_output = open(argv[4], O_RDWR);
+	if (fd->fd_output == -1)
 		return (1);
 	return (0);
 }
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	int		pipefd[2];
 	t_fd	fd;
 
-	if (parsing(argc, argv, fd))
+	if (parsing(argc, argv, &fd))
 		return (error());
 	path = create_command_path(argv[2]);
 	build_first_cmd(argv);
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 	else
 	{
 		wait(NULL);
-		first_fork_dad(pipefd, argv[3], fd);
+		first_fork_dad(pipefd, argv[3], &fd);
 		//on peut donc lire la sortie de la cmd ds pipefd[0], il faut donc le dup pour qu'il devienne l'entree du second pipe
 		//suite du prog
 	}
