@@ -22,16 +22,16 @@ int	first_fork_dad(int *pipefd, char *cmd, t_fd *fd)
 	pid_fork = fork();
 	if (pid_fork == 0)
 	{
-		close(1);
 		dup2(fd->fd_output, 1);
-		close(0);
 		dup2(pipefd[0], 0);
 		execve(path, ft_split(cmd, ' '), NULL);
 	}
-	else
+	else if (pid_fork > 0)
 	{
 		wait(NULL);
 		free(path);
 	}
+	else
+		return (error());
 	return (0);
 }

@@ -10,10 +10,10 @@ int	parsing(int argc, char **argv, t_fd *fd)
 {
 	if (argc != 5)
 		return (1);
-	fd->fd_input = open(argv[1], O_RDWR);
+	fd->fd_input = open(argv[1], O_RDONLY);
 	if (fd->fd_input == -1)
 		return (1);
-	fd->fd_output = open(argv[4], O_RDWR);
+	fd->fd_output = open(argv[4], O_WRONLY | O_TRUNC);
 	if (fd->fd_output == -1)
 		return (1);
 	return (0);
@@ -36,11 +36,13 @@ int	main(int argc, char **argv)
 	pid = fork();
 	if (pid == 0)
 		first_fork_child(pipefd, argv[2], path, &fd);
-	else
+	else if (pid > 0)
 	{
 		wait(NULL);
 		first_fork_dad(pipefd, argv[3], &fd);
 		free(path);
 	}
+	else
+		return (error());
 	return (0);
 }
