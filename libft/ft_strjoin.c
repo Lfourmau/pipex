@@ -45,6 +45,5 @@ char	*ft_strjoin(char const *prefixe, char const *suffixe)
 		return (NULL);
 	concat = fill_concat(prefixe, suffixe, concat);
 	concat[len] = 0;
-	//free((char *)prefixe);
 	return (concat);
 }
