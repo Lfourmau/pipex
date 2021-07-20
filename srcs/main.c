@@ -27,10 +27,10 @@ void build_first_cmd(char **argv)
 
 int main(int argc, char **argv)
 {
-	char	*path;
 	pid_t 	pid;
-	int		pipefd[2];
 	t_fd	fd;
+	char	*path;
+	int		pipefd[2];
 
 	if (parsing(argc, argv, &fd))
 		return (error());
@@ -46,8 +46,6 @@ int main(int argc, char **argv)
 	{
 		wait(NULL);
 		first_fork_dad(pipefd, argv[3], &fd);
-		//on peut donc lire la sortie de la cmd ds pipefd[0], il faut donc le dup pour qu'il devienne l'entree du second pipe
-		//suite du prog
 	}
 	return (0);
 }

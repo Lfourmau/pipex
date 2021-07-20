@@ -23,6 +23,8 @@ int first_fork_dad(int *pipefd, char *cmd, t_fd *fd)
 	{
 		close(1);
 		dup2(fd->fd_output, 1);
+		close(0);
+		dup(pipefd[0]);
 		execve(path, ft_split(cmd, ' '), NULL);
 	}
 	else
