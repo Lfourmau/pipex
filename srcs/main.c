@@ -15,7 +15,10 @@ int	parsing(int argc, char **argv, t_fd *fd)
 		return (1);
 	fd->fd_output = open(argv[4], O_WRONLY | O_TRUNC);
 	if (fd->fd_output == -1)
+	{
+		close(fd->fd_input);
 		return (1);
+	}
 	return (0);
 }
 

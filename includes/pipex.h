@@ -16,7 +16,7 @@ typedef struct s_fd
 }	t_fd;
 
 char	*create_command_path(char *cmd);
-int		first_fork_child(int *pipefd, char *cmd, char *path, t_fd *fd);
+void		first_fork_child(int *pipefd, char *cmd, char *path, t_fd *fd);
 int		first_fork_dad(int *pipefd, char *cmd, t_fd *fd);
 void	free_splits(char **chain, int i);
 int		number_of_split(char **splitresult);

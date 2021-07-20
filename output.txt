@@ -1,1 +1,12 @@
-meuh
+total 64
+drwxr-xr-x   11 lfourmau  2020    374 Jul 20 16:59 .
+drwxr-xr-x    8 lfourmau  2020    272 Jul 19 08:12 ..
+drwxr-xr-x   15 lfourmau  2020    510 Jul 20 16:18 .git
+-rw-r--r--    1 lfourmau  2020    436 Jul 20 13:05 .gitignore
+-rw-r--r--    1 lfourmau  2020    488 Jul 20 12:55 Makefile
+drwxr-xr-x    3 lfourmau  2020    102 Jun 28 14:14 includes
+-rw-rw-rw-    1 lfourmau  2020    103 Jul 20 16:59 input.txt
+drwxr-xr-x  103 lfourmau  2020   3502 Jul 20 16:59 libft
+-rw-r--r--    1 lfourmau  2020      0 Jul 20 17:00 output.txt
+-rwxr-xr-x    1 lfourmau  2020  16500 Jul 20 16:59 pipex
+drwxr-xr-x   10 lfourmau  2020    340 Jul 20 16:59 srcs
