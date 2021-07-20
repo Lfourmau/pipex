@@ -19,12 +19,6 @@ int parsing(int argc, char **argv, t_fd *fd)
 	return (0);
 }
 
-void build_first_cmd(char **argv)
-{
-	argv[2] = ft_strjoin(argv[2], " ");
-	argv[2] = ft_strjoin(argv[2], argv[1]);
-}
-
 int main(int argc, char **argv)
 {
 	pid_t 	pid;
@@ -35,17 +29,17 @@ int main(int argc, char **argv)
 	if (parsing(argc, argv, &fd))
 		return (error());
 	path = create_command_path(argv[2]);
-	build_first_cmd(argv);
 	if (path == NULL)
 		return (error());
 	pipe(pipefd);
 	pid = fork();
 	if (pid == 0)
-		first_fork_child(pipefd, argv[2], path);
+		first_fork_child(pipefd, argv[2], path, &fd);
 	else
 	{
 		wait(NULL);
 		first_fork_dad(pipefd, argv[3], &fd);
+		free(path);
 	}
 	return (0);
 }
