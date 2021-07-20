@@ -19,7 +19,7 @@ int	parsing(int argc, char **argv, t_fd *fd)
 	return (0);
 }
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv)
 {
 	pid_t	pid;
 	t_fd	fd;
@@ -31,7 +31,8 @@ int	main(int argc, char **argv, char **env)
 	path = create_command_path(argv[2]);
 	if (path == NULL)
 		return (error());
-	pipe(pipefd);
+	if (pipe(pipefd) == 1)
+		return (error());
 	pid = fork();
 	if (pid == 0)
 		first_fork_child(pipefd, argv[2], path, &fd);

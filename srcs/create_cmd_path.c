@@ -41,6 +41,7 @@ char	*create_command_path(char *cmd)
 {
 	char	*path;
 	char	**words;
+
 	words = ft_split(cmd, ' ');
 	path = ft_strjoin("/sbin/", words[0]);
 	if (open(path, O_RDONLY) != -1)

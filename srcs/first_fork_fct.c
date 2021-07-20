@@ -14,8 +14,6 @@ int	first_fork_dad(int *pipefd, char *cmd, t_fd *fd)
 {
 	int		pid_fork;
 	char	*path;
-	int		pipefd_fork[2];
-	char	*line;
 
 	close(pipefd[1]);
 	path = create_command_path(cmd);
