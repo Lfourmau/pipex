@@ -1,12 +1,12 @@
 #include "../includes/pipex.h"
 
-int	error()
+int	error(void)
 {
 	printf("An error happened while execution of the prog\n");
 	return (1);
 }
 
-int parsing(int argc, char **argv, t_fd *fd)
+int	parsing(int argc, char **argv, t_fd *fd)
 {
 	if (argc != 5)
 		return (1);
@@ -19,9 +19,9 @@ int parsing(int argc, char **argv, t_fd *fd)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 {
-	pid_t 	pid;
+	pid_t	pid;
 	t_fd	fd;
 	char	*path;
 	int		pipefd[2];

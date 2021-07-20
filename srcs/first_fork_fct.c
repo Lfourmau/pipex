@@ -1,6 +1,6 @@
 #include "../includes/pipex.h"
 
-int first_fork_child(int *pipefd, char *cmd, char *path, t_fd *fd)
+int	first_fork_child(int *pipefd, char *cmd, char *path, t_fd *fd)
 {
 	close(pipefd[0]);
 	close(1);
@@ -10,15 +10,17 @@ int first_fork_child(int *pipefd, char *cmd, char *path, t_fd *fd)
 	return (0);
 }
 
-int first_fork_dad(int *pipefd, char *cmd, t_fd *fd)
+int	first_fork_dad(int *pipefd, char *cmd, t_fd *fd)
 {
-	int pid_fork;
-	char *path;
-	int pipefd_fork[2];
-	char *line;
+	int		pid_fork;
+	char	*path;
+	int		pipefd_fork[2];
+	char	*line;
 
 	close(pipefd[1]);
 	path = create_command_path(cmd);
+	if (path == NULL)
+		return (error());
 	pid_fork = fork();
 	if (pid_fork == 0)
 	{
@@ -29,6 +31,9 @@ int first_fork_dad(int *pipefd, char *cmd, t_fd *fd)
 		execve(path, ft_split(cmd, ' '), NULL);
 	}
 	else
+	{
 		wait(NULL);
+		free(path);
+	}
 	return (0);
 }
