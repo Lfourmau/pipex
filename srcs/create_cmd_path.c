@@ -1,62 +1,66 @@
 #include "../includes/pipex.h"
 
-char	*ret_path(char *path, char **words, int flag)
+static int	find_path_index(char **env)
 {
-	if (flag == 0)
+	int	i;
+
+	i = 0;
+	while (env[i])
 	{
-		free_splits(words, number_of_split(words));
-		return (path);
+		if (env[i][0] == 'P' && env[i][1] == 'A' &&
+		env[i][2] == 'T' && env[i][3] == 'H')
+			return (i);
+		i++;
 	}
-	else
-	{
-		free_splits(words, number_of_split(words));
-		free(path);
-		return (NULL);
-	}
+	return (-1);
 }
 
-static char	*create_cmd_util(char **cmd)
+static char	**create_env_paths(char **env)
 {
-	char	*path;
+	char	**tmp;
+	char	**paths;
+	int		index;
 
-	path = ft_strjoin("/usr/local/bin/", cmd[0]);
-	if (open(path, O_RDONLY) != -1)
-		return (ret_path(path, cmd, 0));
-	free(path);
-	path = ft_strjoin("/usr/bin/", cmd[0]);
-	if (open(path, O_RDONLY) != -1)
-		return (ret_path(path, cmd, 0));
-	free(path);
-	path = ft_strjoin("/bin/", cmd[0]);
-	if (open(path, O_RDONLY) != -1)
-		return (ret_path(path, cmd, 0));
-	free(path);
-	path = ft_strjoin("/usr/sbin/", cmd[0]);
-	if (open(path, O_RDONLY) != -1)
-		return (ret_path(path, cmd, 0));
-	return (ret_path(path, cmd, 1));
+	index = find_path_index(env);
+	tmp = ft_split(env[index], '=');
+	paths = ft_split(tmp[1], ':');
+	free_splits(tmp, number_of_split(tmp));
+	return (paths);
 }
 
-char	*create_command_path(char *cmd)
+static char	*join_cmd_to_path(char *path, char *cmd)
 {
-	char	*path;
+	char	*tmp;
+	char	*res;
+
+	tmp = ft_strjoin(path, "/");
+	res = ft_strjoin(tmp, cmd);
+	free(tmp);
+	return (res);
+}
+
+char	*create_command_path(char **env, char *cmd)
+{
+	char	**paths;
 	char	**words;
+	char	*cmd_path;
+	int		i;
 
+	paths = create_env_paths(env);
 	words = ft_split(cmd, ' ');
-	path = ft_strjoin("/sbin/", words[0]);
-	if (open(path, O_RDONLY) != -1)
-		return (ret_path(path, words, 0));
-	free(path);
-	path = ft_strjoin("/usr/local/munki/", words[0]);
-	if (open(path, O_RDONLY) != -1)
-		return (ret_path(path, words, 0));
-	free(path);
-	path = ft_strjoin("/opt/X11/bin/", words[0]);
-	if (open(path, O_RDONLY) != -1)
-		return (ret_path(path, words, 0));
-	else
+	i = 0;
+	while (paths[i])
 	{
-		free(path);
-		return (create_cmd_util(words));
+		cmd_path = join_cmd_to_path(paths[i], words[0]);
+		if (open(cmd_path, O_RDONLY) != -1)
+		{
+			free_two_splits(words, paths);
+			return (cmd_path);
+		}
+		else
+			free(cmd_path);
+		i++;
 	}
+	free_two_splits(words, paths);
+	return (NULL);
 }

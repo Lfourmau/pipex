@@ -3,20 +3,19 @@
 void	first_fork_child(int *pipefd, char *cmd, char *path, t_fd *fd)
 {
 	close(pipefd[0]);
-	close(1);
-	pipefd[1] = dup(pipefd[1]);
+	dup2(pipefd[1], 1);
 	dup2(fd->fd_input, 0);
 	execve(path, ft_split(cmd, ' '), NULL);
 	exit(1);
 }
 
-int	first_fork_dad(int *pipefd, char *cmd, t_fd *fd)
+int	first_fork_dad(int *pipefd, char *cmd, t_fd *fd, char **env)
 {
 	int		pid_fork;
 	char	*path;
 
 	close(pipefd[1]);
-	path = create_command_path(cmd);
+	path = create_command_path(env, cmd);
 	if (path == NULL)
 		return (error());
 	pid_fork = fork();
