@@ -23,7 +23,7 @@ int	first_fork_dad(int *pipefd, char *cmd, t_fd *fd, char **env)
 	{
 		dup2(fd->fd_output, 1);
 		dup2(pipefd[0], 0);
-		execve(path, ft_split(cmd, ' '), NULL);
+		execve(path, ft_split(cmd, ' '), env);
 		exit(1);
 	}
 	else if (pid_fork > 0)

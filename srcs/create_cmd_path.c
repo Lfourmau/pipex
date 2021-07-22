@@ -7,8 +7,7 @@ static int	find_path_index(char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (env[i][0] == 'P' && env[i][1] == 'A' &&
-		env[i][2] == 'T' && env[i][3] == 'H')
+		if (ft_strncmp(env[i], "PATH", 4) == 0)
 			return (i);
 		i++;
 	}
