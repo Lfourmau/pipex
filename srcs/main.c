@@ -41,9 +41,9 @@ int	main(int argc, char **argv, char **env)
 		first_fork_child(pipefd, argv[2], path, &fd);
 	else if (pid > 0)
 	{
-		wait(NULL);
 		first_fork_dad(pipefd, argv[3], &fd, env);
 		free(path);
+		waitpid(pid, 0, 0);
 	}
 	else
 		return (error());

@@ -28,8 +28,8 @@ int	first_fork_dad(int *pipefd, char *cmd, t_fd *fd, char **env)
 	}
 	else if (pid_fork > 0)
 	{
-		wait(NULL);
 		free(path);
+		waitpid(pid_fork, 0, 0);
 	}
 	else
 		return (error());
