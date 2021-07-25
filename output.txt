@@ -1,12 +1,11 @@
-46 latot
-. 72:11 22 luJ 473    0202  uamruofl 11   x-rx-rxwrd
-.. 74:01 22 luJ 603    0202  uamruofl 9    x-rx-rxwrd
-tig. 82:11 22 luJ 015    0202  uamruofl 51   x-rx-rxwrd
-erongitig. 52:11 22 luJ 654    0202  uamruofl 1    --r--r-wr-
-elifekaM 52:11 22 luJ 884    0202  uamruofl 1    --r--r-wr-
-sedulcni 41:41 82 nuJ 201    0202  uamruofl 3    x-rx-rxwrd
-txt.tupni 74:80 22 luJ 831    0202  uamruofl 1    -wr-wr-wr-
-tfbil 72:11 22 luJ 2053   0202  uamruofl 301  x-rx-rxwrd
-txt.tuptuo 93:11 22 luJ 0      0202  uamruofl 1    --r--r-wr-
-xepip 72:11 22 luJ 27961  0202  uamruofl 1    x-rx-rxwr-
-scrs 72:11 22 luJ 043    0202  uamruofl 01   x-rx-rxwrd
+bonjour
+les
+bananes
+sont
+de
+superbes
+fruits meme quand
+elles sontun peu pourries
+il faut
+quand meme els mager
+le gaspillage c'est pas cool
